@@ -16,7 +16,7 @@ public class CalculadoraHorasGUI extends JFrame {
 
     public CalculadoraHorasGUI() {
         setTitle("Hours Calculator");
-        setSize(400, 400); // Aumentei a altura para criar mais espaço
+        setSize(400, 450); // Aumentei a altura para criar mais espaço
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -38,19 +38,19 @@ public class CalculadoraHorasGUI extends JFrame {
             gbc.anchor = GridBagConstraints.CENTER;
             panel.add(lblTitulo, gbc);
 
-            // Adicionando um separador entre o título e os outros componentes
             JSeparator separator = new JSeparator();
             gbc.gridy = 1;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.insets = new Insets(5, 0, 10, 0); // Espaçamento extra
+            gbc.insets = new Insets(5, 0, 10, 0);
             panel.add(separator, gbc);
 
-            JLabel lblHoraInicial = new JLabel("Hora Inicial (HH:mm):");
+            JLabel lblHoraInicial = new JLabel("Hora Inicial:");
+            lblHoraInicial.setForeground(new Color(51, 114, 134));
             gbc.gridx = 0;
             gbc.gridy = 2;
             gbc.gridwidth = 1;
             gbc.anchor = GridBagConstraints.WEST;
-            gbc.fill = GridBagConstraints.NONE; // Resetando para o padrão
+            gbc.fill = GridBagConstraints.NONE;
             panel.add(lblHoraInicial, gbc);
 
             txtHoraInicial = new JFormattedTextField(timeFormatter);
@@ -58,7 +58,8 @@ public class CalculadoraHorasGUI extends JFrame {
             gbc.gridy = 2;
             panel.add(txtHoraInicial, gbc);
 
-            JLabel lblPeriodo = new JLabel("Período (HH:mm):");
+            JLabel lblPeriodo = new JLabel("Período:");
+            lblPeriodo.setForeground(new Color(51, 114, 134));
             gbc.gridx = 0;
             gbc.gridy = 3;
             panel.add(lblPeriodo, gbc);
@@ -81,7 +82,7 @@ public class CalculadoraHorasGUI extends JFrame {
             panel.add(btnSomar, gbc);
 
             JButton btnSubtrair = new JButton("Subtrair Horas");
-            btnSubtrair.setBackground(new Color(140, 186, 231)); // Tom de azul pastel
+            btnSubtrair.setBackground(new Color(140, 186, 231));
             btnSubtrair.setForeground(Color.WHITE);
             btnSubtrair.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -92,7 +93,8 @@ public class CalculadoraHorasGUI extends JFrame {
             gbc.gridy = 4;
             panel.add(btnSubtrair, gbc);
 
-            JLabel lblHoraFinal = new JLabel("Hora Final (HH:mm):");
+            JLabel lblHoraFinal = new JLabel("Hora Final:");
+            lblHoraFinal.setForeground(new Color(51, 114, 134));
             gbc.gridx = 0;
             gbc.gridy = 5;
             panel.add(lblHoraFinal, gbc);
@@ -103,7 +105,7 @@ public class CalculadoraHorasGUI extends JFrame {
             panel.add(txtHoraFinal, gbc);
 
             JButton btnCalcularIntervalo = new JButton("Calcular Intervalo");
-            btnCalcularIntervalo.setBackground(new Color(140, 186, 231)); // Tom de azul pastel
+            btnCalcularIntervalo.setBackground(new Color(140, 186, 231));
             btnCalcularIntervalo.setForeground(Color.WHITE);
             btnCalcularIntervalo.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -115,7 +117,7 @@ public class CalculadoraHorasGUI extends JFrame {
             gbc.gridwidth = 2;
             panel.add(btnCalcularIntervalo, gbc);
 
-            txtResultado = new JTextArea(2, 20); // aumentei para 20 linhas
+            txtResultado = new JTextArea(2, 20);
             txtResultado.setEditable(false);
             JScrollPane scrollPane = new JScrollPane(txtResultado);
             gbc.gridx = 0;
@@ -123,6 +125,20 @@ public class CalculadoraHorasGUI extends JFrame {
             gbc.gridwidth = 10;
             gbc.fill = GridBagConstraints.BOTH;
             panel.add(scrollPane, gbc);
+
+            JButton btnLimpar = new JButton("Limpar campos");
+            btnLimpar.setBackground(new Color(204, 79, 79));
+            btnLimpar.setForeground(Color.WHITE);
+            btnLimpar.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    limparCampos();
+                }
+            });
+            gbc.gridx = 0;
+            gbc.gridy = 8;
+            gbc.gridwidth = 2;
+            panel.add(btnLimpar, gbc);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -170,6 +186,13 @@ public class CalculadoraHorasGUI extends JFrame {
         int hours = Integer.parseInt(parts[0]);
         int minutes = Integer.parseInt(parts[1]);
         return Duration.ofHours(hours).plusMinutes(minutes);
+    }
+
+    private void limparCampos() {
+        txtHoraInicial.setText("");
+        txtPeriodo.setText("");
+        txtHoraFinal.setText("");
+        txtResultado.setText("");
     }
 
     public static void main(String[] args) {
